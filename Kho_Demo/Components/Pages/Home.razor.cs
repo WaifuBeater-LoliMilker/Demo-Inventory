@@ -22,13 +22,7 @@ namespace Kho_Demo.Components.Pages
         private string password { get; set; } = "";
         private ElementReference usernameInput;
         private ElementReference passwordInput;
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await JS.InvokeVoidAsync("preventBackNavigation");
-            }
-        }
+
         public async Task OnUsernameKeyUp(KeyboardEventArgs e)
         {
             if (e.Code == "Enter" || e.Key == "Enter" || e.Code == "NumpadEnter")

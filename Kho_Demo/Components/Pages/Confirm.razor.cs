@@ -57,6 +57,7 @@ namespace Kho_Demo.Components.Pages
                     var json = await response.Content.ReadAsStringAsync();
                 }
                 await JS.InvokeVoidAsync("toggleLoading", false);
+                dataShareService.qrData.Clear();
                 Nav.NavigateTo($"/");
             }
             catch (Exception ex)
