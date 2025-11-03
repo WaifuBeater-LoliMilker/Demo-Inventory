@@ -36,6 +36,7 @@ namespace Kho_Demo.Components.Pages
                     var qrInfoDTO = JsonConvert.DeserializeObject<QRInfoDTO>(json);
                     if (!String.IsNullOrEmpty(qrInfoDTO?.message)) throw new Exception(qrInfoDTO?.message);
                     await JS.InvokeVoidAsync("toggleLoading", false);
+                    await JS.InvokeVoidAsync("selectAllText", qrInput);
                     if (!dataShareService.qrData.Any(d => qrInfoDTO!.data.Any(dn => d.ID == dn.ID)))
                         dataShareService.qrData.Add(qrInfoDTO!.data[0]);
                     else
