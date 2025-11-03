@@ -55,7 +55,7 @@
         <MauiIcon Include="Resources\AppIcon\iconrtc.png" Color="White" BaseSize="869,869" ForegroundScale="0.65" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.png" Color="White" BaseSize="869,869" />
+        <MauiSplashScreen Include="Resources\Splash\splash.png" Color="White" BaseSize="869,869" ForegroundScale="0.65" />
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
