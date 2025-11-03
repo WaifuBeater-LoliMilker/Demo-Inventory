@@ -1,0 +1,34 @@
+﻿@page "/scan"
+<div class="d-flex flex-column h-100">
+    <div class="header-div d-flex justify-content-center p-2">
+        <div class="input-group">
+            <span class="input-group-text" for="qr_code">QR code</span>
+            <input type="text" class="form-control" id="qr_code" @bind="qrCode" @bind:event="oninput" @onkeyup="OnKeyUp"
+                   @ref="qrInput">
+        </div>
+    </div>
+    <div class="body-div overflow-auto p-2">
+        <table class="table table-hover table-striped table-bordered border-primary mb-0">
+            <thead class="table-light text-center align-middle">
+                <tr>
+                    <th style="width:50px" class="text-center"></th>
+                    <th>Code</th>
+                    <th class="text-center">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in dataShareService.qrData)
+                {
+                    <tr>
+                        <td class="text-center align-middle">1</td>
+                        <td class="text-center align-middle">@item.ProductQRCode</td>
+                        <td class="text-center align-middle">@item.ProductName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="footer-div d-flex justify-content-center p-2">
+        <button class="btn btn-primary" @onclick="OnConfirm"><i class="fa-solid fa-check"></i> Confirm</button>
+    </div>
+</div>
