@@ -42,6 +42,8 @@ namespace Kho_Demo.Components.Pages
             try
             {
                 await JS.InvokeVoidAsync("toggleLoading", true);
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                    throw new Exception("Please enter username/password");
                 var payload = new
                 {
                     LoginName = username,
@@ -51,7 +53,7 @@ namespace Kho_Demo.Components.Pages
                 var jsonContent = new StringContent(serialized,
                     Encoding.UTF8,
                     "application/json");
-                var response = await apiService.Client.PostAsync($"rerpapi/api/home/login", jsonContent);
+                var response = await apiService.Client.PostAsync($"api/api/home/login", jsonContent);
 
                 if (!response.IsSuccessStatusCode)
                 {

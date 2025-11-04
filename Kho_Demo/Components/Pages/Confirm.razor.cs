@@ -33,6 +33,9 @@ namespace Kho_Demo.Components.Pages
                 {
                     saveData.Add(new BorrowRecord
                     {
+                        ProductRTCQRCodeID = item.ID,
+                        ProductRTCID = item.ProductRTCID,
+                        ProductRTCQRCode = item.ProductQRCode,
                         DateBorrow = borrowDate,
                         DateReturnExpected = returnDate,
                         Project = projectCode,
@@ -47,7 +50,7 @@ namespace Kho_Demo.Components.Pages
                         "application/json");
                     var token = Preferences.Get("Token", "");
                     apiService.Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    var response = await apiService.Client.PostAsync($"rerpapi/api/historyproductrtc/save-data", jsonContent);
+                    var response = await apiService.Client.PostAsync($"api/api/historyproductrtc/save-data", jsonContent);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -55,10 +58,12 @@ namespace Kho_Demo.Components.Pages
                     }
 
                     var json = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<BorrowRecordDTO>(json);
+                    if (result?.status == 0) throw new Exception("Current product(s) is not available.");
                 }
                 await JS.InvokeVoidAsync("toggleLoading", false);
                 dataShareService.qrData.Clear();
-                Nav.NavigateTo($"/");
+                Nav.NavigateTo($"/scan");
             }
             catch (Exception ex)
             {

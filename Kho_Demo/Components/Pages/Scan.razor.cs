@@ -31,19 +31,24 @@ namespace Kho_Demo.Components.Pages
                     await JS.InvokeVoidAsync("toggleLoading", true);
                     var token = Preferences.Get("Token", "");
                     apiService.Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    var response = await apiService.Client.GetAsync($"rerpapi/api/ProductRTC/get-by-qrcode?qrCode={qrCode}");
+                    var response = await apiService.Client.GetAsync($"api/api/ProductRTC/get-by-qrcode?qrCode={qrCode}");
                     var json = await response.Content.ReadAsStringAsync();
                     var qrInfoDTO = JsonConvert.DeserializeObject<QRInfoDTO>(json);
                     if (!String.IsNullOrEmpty(qrInfoDTO?.message)) throw new Exception(qrInfoDTO?.message);
                     await JS.InvokeVoidAsync("toggleLoading", false);
                     await JS.InvokeVoidAsync("selectAllText", qrInput);
                     if (!dataShareService.qrData.Any(d => qrInfoDTO!.data.Any(dn => d.ID == dn.ID)))
-                        dataShareService.qrData.Add(qrInfoDTO!.data[0]);
+                    {
+                        if(qrInfoDTO!.data.Count > 0)
+                            dataShareService.qrData.Add(qrInfoDTO!.data[0]);
+                        else
+                            throw new Exception("This product is currently unavailable.");
+                    }
                     else
                     {
                         var confirmDup = await alertService.ShowQuestionAsync("Notice",
                             "This code has already been added, do you want to add again?", "OK", "Cancel");
-                        if(confirmDup) dataShareService.qrData.Add(qrInfoDTO!.data[0]);
+                        if (confirmDup) dataShareService.qrData.Add(qrInfoDTO!.data[0]);
                     };
                 }
             }

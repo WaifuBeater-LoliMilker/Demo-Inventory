@@ -17,10 +17,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in dataShareService.qrData)
+                @for (int i = 0; i < dataShareService.qrData.Count; i++)
                 {
+                    var item = dataShareService.qrData[i];
                     <tr>
-                        <td class="text-center align-middle">1</td>
+                        <td class="text-center align-middle">@((i + 1))</td>
                         <td class="text-center align-middle">@item.ProductQRCode</td>
                         <td class="text-center align-middle">@item.ProductName</td>
                     </tr>

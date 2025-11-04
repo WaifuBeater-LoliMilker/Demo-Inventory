@@ -3,6 +3,12 @@
     <div class="container flex-grow-1">
         <div class="row">
             <div>
+                <label class="fw-bold">Position</label>
+                <input type="text" class="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div>
                 <label class="fw-bold">Borrow date</label>
                 <input type="date" class="form-control" @bind="borrowDate" @bind:event="oninput" />
             </div>
@@ -22,7 +28,7 @@
         <div class="row">
             <div>
                 <label class="fw-bold">Note</label>
-                <textarea class="form-control" style="min-height: 300px" @bind="note" @bind:event="oninput"></textarea>
+                <textarea class="form-control" style="min-height: 270px" @bind="note" @bind:event="oninput"></textarea>
             </div>
         </div>
     </div>
